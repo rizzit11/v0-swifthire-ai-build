@@ -1,18 +1,25 @@
-import { Mic } from "lucide-react"
+import { InterviewStudio } from "@/components/candidate/interview-studio"
+
+export const dynamic = "force-dynamic"
 
 export default function InterviewsPage() {
   return (
-    <div className="glass ring-inset-highlight flex flex-col items-start gap-3 rounded-2xl p-8">
-      <div className="grid h-10 w-10 place-items-center rounded-xl bg-secondary/10 text-secondary">
-        <Mic className="h-5 w-5" aria-hidden />
-      </div>
-      <h2 className="font-serif text-xl font-semibold tracking-tight">
-        Practice interviews
-      </h2>
-      <p className="max-w-lg text-sm text-text-secondary">
-        Rubric-based mock interviews with coaching feedback — coming in the
-        next release.
-      </p>
+    <div className="flex flex-col gap-6">
+      <header>
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary-glow">
+          Step 03
+        </span>
+        <h2 className="mt-2 font-serif text-2xl font-semibold tracking-tight sm:text-3xl">
+          Practice interviews with a coach
+        </h2>
+        <p className="mt-2 max-w-2xl text-sm text-text-secondary">
+          Pick a track, answer rubric-based prompts, and get structured feedback
+          with a confidence indicator. Preview experience — live sessions ship
+          in the next release.
+        </p>
+      </header>
+
+      <InterviewStudio />
     </div>
   )
 }
