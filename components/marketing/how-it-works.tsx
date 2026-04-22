@@ -34,7 +34,7 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="relative border-t border-border py-24 sm:py-32"
+      className="relative border-t border-border py-16 sm:py-20"
       aria-labelledby="how-heading"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -50,7 +50,7 @@ export function HowItWorks() {
           </h2>
         </header>
 
-        <ol className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
             <motion.li
               key={s.n}

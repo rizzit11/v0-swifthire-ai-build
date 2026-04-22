@@ -30,7 +30,7 @@ export function BiasExplainability() {
   return (
     <section
       id="fairness"
-      className="relative overflow-hidden py-24 sm:py-32"
+      className="relative overflow-hidden py-16 sm:py-20"
       aria-labelledby="fairness-heading"
     >
       <div
@@ -54,7 +54,7 @@ export function BiasExplainability() {
           </p>
         </header>
 
-        <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
           {questions.map((item, i) => (
             <motion.article
               key={item.q}
@@ -79,7 +79,7 @@ export function BiasExplainability() {
           ))}
         </div>
 
-        <div className="mx-auto mt-10 max-w-2xl text-center text-xs text-text-muted">
+        <div className="mx-auto mt-8 max-w-2xl text-center text-xs text-text-muted">
           SwiftHire AI ships Integrity Signals and Confidence Indicators. It is
           not marketed as cheat-proof — humans stay in the loop.
         </div>

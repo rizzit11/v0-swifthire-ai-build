@@ -14,7 +14,7 @@ export function TrustedBy() {
       className="relative border-y border-border bg-surface/40"
       aria-label="Trusted by leading teams"
     >
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-4 py-10 sm:px-6">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-7 sm:px-6">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted">
           Trusted by teams hiring faster
         </p>

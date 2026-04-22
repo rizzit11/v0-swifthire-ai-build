@@ -79,7 +79,7 @@ export function FeatureBento() {
   return (
     <section
       id="features"
-      className="relative py-24 sm:py-32"
+      className="relative py-16 sm:py-20"
       aria-labelledby="features-heading"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -100,7 +100,7 @@ export function FeatureBento() {
 
         <div
           className={cn(
-            "mt-14 grid grid-cols-1 gap-4 sm:gap-5",
+            "mt-10 grid grid-cols-1 gap-4 sm:gap-5",
             "md:grid-cols-6 md:auto-rows-[minmax(180px,auto)]",
           )}
         >

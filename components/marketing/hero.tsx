@@ -15,15 +15,13 @@ const trustBadges = [
 export function Hero() {
   return (
     <section
-      className="relative overflow-hidden pt-32 pb-20 sm:pt-36 sm:pb-28"
+      className="relative overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16"
       aria-labelledby="hero-heading"
     >
-      {/* Grid + beam backdrop */}
       <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade" aria-hidden />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[620px] hero-beam" aria-hidden />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[520px] hero-beam" aria-hidden />
 
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
-        {/* Left column */}
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-4 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
         <div className="flex flex-col items-start">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -48,7 +46,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="mt-6 font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl"
+            className="mt-5 font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl"
           >
             <span className="text-gradient-primary">Hire with</span>
             <br />
@@ -59,26 +57,25 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.12 }}
-            className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-text-secondary sm:text-lg"
+            className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-text-secondary sm:text-lg"
           >
             SwiftHire AI pairs candidates and recruiters on one platform:
             AI-crafted resumes, ATS-grade JD matching, live interview coaching,
             and bias-aware shortlisting — with every score explained.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:items-center"
+            className="mt-6 flex w-full flex-col gap-3 sm:flex-row sm:items-center"
           >
             <Button
               asChild
               size="lg"
               className="h-12 rounded-xl bg-primary px-6 text-primary-foreground hover:bg-primary-glow glow-primary"
             >
-              <Link href="#get-started">
+              <Link href="/auth/sign-up">
                 Start free — it takes 60s
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
               </Link>
@@ -93,12 +90,11 @@ export function Hero() {
             </Button>
           </motion.div>
 
-          {/* Trust badges */}
           <motion.ul
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.28 }}
-            className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2"
+            className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2"
             aria-label="Product highlights"
           >
             {trustBadges.map(({ icon: Icon, label }) => (
@@ -113,7 +109,6 @@ export function Hero() {
           </motion.ul>
         </div>
 
-        {/* Right column — auto-typing resume hero visual */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

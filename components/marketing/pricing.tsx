@@ -69,7 +69,7 @@ export function Pricing() {
   return (
     <section
       id="pricing"
-      className="relative py-24 sm:py-32"
+      className="relative border-t border-border py-16 sm:py-20"
       aria-labelledby="pricing-heading"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -88,7 +88,7 @@ export function Pricing() {
           </p>
         </header>
 
-        <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
           {plans.map((p, i) => (
             <motion.div
               key={p.id}
@@ -149,7 +149,9 @@ export function Pricing() {
                     : "border border-border bg-white/[0.02] text-foreground hover:bg-white/5",
                 )}
               >
-                <Link href="#get-started">{p.cta}</Link>
+                <Link href={p.id === "scale" ? "/auth/sign-up?plan=scale" : "/auth/sign-up"}>
+                  {p.cta}
+                </Link>
               </Button>
             </motion.div>
           ))}

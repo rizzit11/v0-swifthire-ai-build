@@ -37,7 +37,7 @@ const testimonials: Testimonial[] = [
 export function Testimonials() {
   return (
     <section
-      className="relative border-t border-border py-24 sm:py-32"
+      className="relative border-t border-border py-16 sm:py-20"
       aria-labelledby="testimonials-heading"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -53,7 +53,7 @@ export function Testimonials() {
           </h2>
         </header>
 
-        <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
           {testimonials.map((t, i) => (
             <motion.figure
               key={t.name}

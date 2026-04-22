@@ -55,7 +55,7 @@ export function Footer() {
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
           <div className="col-span-2 flex flex-col gap-4">
             <Link
@@ -110,7 +110,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 sm:flex-row sm:items-center">
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 sm:flex-row sm:items-center">
           <p className="font-mono text-[11px] text-text-muted">
             © {new Date().getFullYear()} SwiftHire AI, Inc. All rights reserved.
           </p>

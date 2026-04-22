@@ -43,7 +43,6 @@ export function Navbar() {
             : "border border-transparent bg-transparent",
         )}
       >
-        {/* Logo */}
         <Link
           href="/"
           className="flex items-center gap-2 text-foreground"
@@ -57,11 +56,7 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav
-          aria-label="Primary"
-          className="hidden items-center gap-1 md:flex"
-        >
+        <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
           {navLinks.map((l) => (
             <Link
               key={l.href}
@@ -73,24 +68,22 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Desktop CTAs */}
         <div className="hidden items-center gap-2 md:flex">
           <Button
             asChild
             variant="ghost"
             className="h-9 rounded-xl text-text-secondary hover:bg-white/5 hover:text-foreground"
           >
-            <Link href="#sign-in">Sign in</Link>
+            <Link href="/auth/login">Sign in</Link>
           </Button>
           <Button
             asChild
             className="h-9 rounded-xl bg-primary text-primary-foreground hover:bg-primary-glow glow-primary"
           >
-            <Link href="#get-started">Get started</Link>
+            <Link href="/auth/sign-up">Get started</Link>
           </Button>
         </div>
 
-        {/* Mobile trigger */}
         <button
           type="button"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -106,7 +99,6 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile panel */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -136,7 +128,7 @@ export function Navbar() {
                   variant="ghost"
                   className="rounded-xl border border-border text-text-secondary hover:bg-white/5 hover:text-foreground"
                 >
-                  <Link href="#sign-in" onClick={() => setMobileOpen(false)}>
+                  <Link href="/auth/login" onClick={() => setMobileOpen(false)}>
                     Sign in
                   </Link>
                 </Button>
@@ -144,7 +136,10 @@ export function Navbar() {
                   asChild
                   className="rounded-xl bg-primary text-primary-foreground hover:bg-primary-glow"
                 >
-                  <Link href="#get-started" onClick={() => setMobileOpen(false)}>
+                  <Link
+                    href="/auth/sign-up"
+                    onClick={() => setMobileOpen(false)}
+                  >
                     Get started
                   </Link>
                 </Button>
