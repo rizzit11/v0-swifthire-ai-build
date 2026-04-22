@@ -35,10 +35,9 @@ export async function POST(request: Request) {
   const { data: resume, error: resumeErr } = await supabase
     .from("resumes")
     .insert({
-      user_id: user.id,
+      candidate_id: user.id,
       title: file.name.replace(/\.pdf$/i, ""),
-      source: "upload",
-      parse_status: "queued",
+      parse_status: "pending",
     })
     .select("id")
     .single()
@@ -77,7 +76,7 @@ export async function POST(request: Request) {
     .insert({
       resume_id: resume.id,
       user_id: user.id,
-      status: "queued",
+      status: "pending",
     })
     .select("id")
     .single()
@@ -94,7 +93,7 @@ export async function POST(request: Request) {
   })
 
   return NextResponse.json(
-    { jobId: job.id, resumeId: resume.id, status: "queued" },
+    { jobId: job.id, resumeId: resume.id, status: "pending" },
     { status: 202 },
   )
 }
@@ -128,17 +127,17 @@ async function runParseJob({
     await supabase
       .from("resumes")
       .update({
-        parse_status: "succeeded",
-        parsed_json: parsed,
+        parse_status: "completed",
+        parsed_data: parsed,
         ats_score: Math.round(parsed.ats_score ?? 0),
-        title_suggestion: parsed.role ?? null,
       })
       .eq("id", resumeId)
 
     await supabase
       .from("resume_parse_jobs")
       .update({
-        status: "succeeded",
+        status: "completed",
+        result: parsed,
         completed_at: new Date().toISOString(),
       })
       .eq("id", jobId)

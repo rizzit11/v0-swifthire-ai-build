@@ -69,12 +69,12 @@ export function ResumeUploader() {
             return
           }
           const data = (await pr.json()) as {
-            status: "queued" | "processing" | "succeeded" | "failed"
+            status: "pending" | "processing" | "completed" | "failed"
             error?: string | null
             atsScore?: number | null
           }
 
-          if (data.status === "succeeded") {
+          if (data.status === "completed") {
             setState({
               phase: "done",
               fileName: file.name,
@@ -97,6 +97,7 @@ export function ResumeUploader() {
             jobId,
             resumeId,
           })
+          // "queued" UI phase maps to DB "pending"
           if (attempts < maxAttempts) setTimeout(tick, 1500)
           else
             setState({

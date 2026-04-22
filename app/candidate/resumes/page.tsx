@@ -8,7 +8,7 @@ export default async function ResumesPage() {
   const supabase = await createClient()
   const { data: resumes } = await supabase
     .from("resumes")
-    .select("id, title, is_primary, ats_score, parsed_json, updated_at")
+    .select("id, title, is_primary, ats_score, parsed_data, updated_at")
     .is("archived_at", null)
     .order("updated_at", { ascending: false })
 

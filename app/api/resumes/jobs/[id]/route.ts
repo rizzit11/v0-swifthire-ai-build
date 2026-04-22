@@ -26,7 +26,7 @@ export async function GET(
   if (!job) return NextResponse.json({ error: "Not found" }, { status: 404 })
 
   let atsScore: number | null = null
-  if (job.status === "succeeded") {
+  if (job.status === "completed") {
     const { data: resume } = await supabase
       .from("resumes")
       .select("ats_score")

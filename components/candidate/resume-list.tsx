@@ -8,7 +8,7 @@ type Resume = {
   title: string | null
   is_primary: boolean | null
   ats_score: number | null
-  parsed_json: Record<string, unknown> | null
+  parsed_data: Record<string, unknown> | null
   updated_at: string | null
 }
 
@@ -47,7 +47,7 @@ export function ResumeList({ initial }: { initial: Resume[] }) {
 }
 
 function ResumeRow({ resume }: { resume: Resume }) {
-  const parsed = (resume.parsed_json ?? {}) as {
+  const parsed = (resume.parsed_data ?? {}) as {
     name?: string
     email?: string
     role?: string
