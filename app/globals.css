@@ -1,0 +1,285 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   SwiftHire AI — Design Tokens (Section 8.1 of spec)
+   Huly / Linear / Aceternity premium dark theme.
+   All tokens live here; Tailwind v4 reads @theme inline below.
+   ============================================================ */
+
+:root {
+  /* Surfaces */
+  --background: #070b14;
+  --surface: #0f172a;
+  --surface-alt: #111827;
+  --foreground: #f8fafc;
+
+  /* Brand */
+  --primary: #7c3aed;
+  --primary-glow: #8b5cf6;
+  --primary-foreground: #f8fafc;
+  --secondary: #06b6d4;
+  --secondary-foreground: #070b14;
+  --accent: #22c55e;
+  --accent-foreground: #070b14;
+
+  /* Semantic */
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  /* Text */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  /* shadcn-compatible mappings */
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+  --popover: #0f172a;
+  --popover-foreground: #f8fafc;
+  --muted: #111827;
+  --muted-foreground: #94a3b8;
+  --destructive: #ef4444;
+  --destructive-foreground: #f8fafc;
+  --border: rgba(148, 163, 184, 0.14);
+  --input: rgba(148, 163, 184, 0.14);
+  --ring: #7c3aed;
+
+  /* Charts */
+  --chart-1: #7c3aed;
+  --chart-2: #06b6d4;
+  --chart-3: #22c55e;
+  --chart-4: #f59e0b;
+  --chart-5: #ef4444;
+
+  /* Radius (Section 8.3: cards 20px, buttons 14px) */
+  --radius: 0.875rem; /* 14px — default for buttons */
+  --radius-card: 1.25rem; /* 20px — cards */
+
+  /* Sidebar */
+  --sidebar: #0f172a;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #7c3aed;
+  --sidebar-primary-foreground: #f8fafc;
+  --sidebar-accent: #111827;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: rgba(148, 163, 184, 0.14);
+  --sidebar-ring: #7c3aed;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-geist), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono Fallback', ui-monospace,
+    SFMono-Regular, Menlo, monospace;
+  --font-display: var(--font-geist), 'Geist Fallback', ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius-card);
+  --radius-2xl: calc(var(--radius-card) + 6px);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply bg-background;
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  ::selection {
+    background: rgba(124, 58, 237, 0.35);
+    color: var(--text-primary);
+  }
+}
+
+@layer utilities {
+  /* Subtle grid background for hero / sections */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .bg-grid-fade {
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+  }
+
+  /* Glass surface: used on cards, hero panel, nav */
+  .glass {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.015) 100%
+    );
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .glass-strong {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  /* Inner highlight top edge, very subtle */
+  .ring-inset-highlight {
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+      0 1px 0 0 rgba(0, 0, 0, 0.2);
+  }
+
+  /* Primary CTA glow (Section 8.3 — only on hero + primary CTAs) */
+  .glow-primary {
+    box-shadow:
+      0 0 0 1px rgba(139, 92, 246, 0.4),
+      0 8px 32px -8px rgba(124, 58, 237, 0.55),
+      0 0 48px -12px rgba(139, 92, 246, 0.45);
+  }
+
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 45%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Hero beam — radial purple-to-cyan glow behind hero (Aceternity-style) */
+  .hero-beam {
+    background:
+      radial-gradient(
+        ellipse 60% 50% at 50% 0%,
+        rgba(124, 58, 237, 0.28) 0%,
+        rgba(124, 58, 237, 0.08) 35%,
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 40% 40% at 80% 20%,
+        rgba(6, 182, 212, 0.18) 0%,
+        transparent 60%
+      );
+  }
+
+  /* Blinking caret for auto-typing text */
+  .caret-blink::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 2px;
+    background: currentColor;
+    vertical-align: -0.1em;
+    animation: caret-blink 1s steps(2, start) infinite;
+  }
+
+  @keyframes caret-blink {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  /* Slow shimmer for "trusted by" logos */
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0;
+    }
+    to {
+      background-position: 200% 0;
+    }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(148, 163, 184, 0.3) 0%,
+      rgba(248, 250, 252, 0.9) 50%,
+      rgba(148, 163, 184, 0.3) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 4s linear infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Floating chip animation (for ATS / integrity chips in hero) */
+  @keyframes float-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .animate-float {
+    animation: float-y 4s ease-in-out infinite;
+  }
+}
