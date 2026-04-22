@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { ArrowRight, Sparkles, ShieldCheck, Gauge } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AutoTypingResume } from "./auto-typing-resume"
+import { ParallaxLayer } from "./parallax-layer"
 
 const trustBadges = [
   { icon: ShieldCheck, label: "SOC 2-ready" },
@@ -18,8 +19,21 @@ export function Hero() {
       className="relative overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16"
       aria-labelledby="hero-heading"
     >
-      <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade" aria-hidden />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[520px] hero-beam" aria-hidden />
+      {/* Layered parallax backdrop */}
+      <ParallaxLayer
+        decorative
+        speed={-0.25}
+        className="absolute inset-0"
+      >
+        <div className="absolute inset-0 bg-grid bg-grid-fade" aria-hidden />
+      </ParallaxLayer>
+      <ParallaxLayer
+        decorative
+        speed={0.5}
+        className="absolute inset-x-0 top-0 h-[520px]"
+      >
+        <div className="absolute inset-0 hero-beam" aria-hidden />
+      </ParallaxLayer>
 
       <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-4 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
         <div className="flex flex-col items-start">
@@ -109,13 +123,17 @@ export function Hero() {
           </motion.ul>
         </div>
 
+        {/* Foreground resume panel with subtle opposing parallax so it appears
+            to "float" above the backdrop as you scroll. */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
           className="relative"
         >
-          <AutoTypingResume />
+          <ParallaxLayer speed={-0.15}>
+            <AutoTypingResume />
+          </ParallaxLayer>
         </motion.div>
       </div>
     </section>

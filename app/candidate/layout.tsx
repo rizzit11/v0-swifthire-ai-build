@@ -1,13 +1,14 @@
 import { redirect } from "next/navigation"
-import { LayoutDashboard, FileText, Target, Mic } from "lucide-react"
 import { AppShell } from "@/components/app/app-shell"
+import type { NavItem } from "@/components/app/sidebar-nav"
 import { createClient } from "@/lib/supabase/server"
 
-const nav = [
-  { href: "/candidate", label: "Overview", Icon: LayoutDashboard },
-  { href: "/candidate/resumes", label: "Resumes", Icon: FileText },
-  { href: "/candidate/jobs", label: "JD matching", Icon: Target },
-  { href: "/candidate/interviews", label: "Interviews", Icon: Mic },
+// Plain-data nav (no React components) so it can cross the RSC boundary.
+const nav: NavItem[] = [
+  { href: "/candidate", label: "Overview", icon: "dashboard" },
+  { href: "/candidate/resumes", label: "Resumes", icon: "resume" },
+  { href: "/candidate/jobs", label: "JD matching", icon: "target" },
+  { href: "/candidate/interviews", label: "Interviews", icon: "mic" },
 ]
 
 export default async function CandidateLayout({

@@ -1,16 +1,20 @@
 import { redirect } from "next/navigation"
-import { LayoutDashboard, Briefcase, Users, ShieldCheck } from "lucide-react"
 import { AppShell } from "@/components/app/app-shell"
+import type { NavItem } from "@/components/app/sidebar-nav"
 import { createClient } from "@/lib/supabase/server"
 
-const nav = [
-  { href: "/hr", label: "Overview", Icon: LayoutDashboard },
-  { href: "/hr/jobs", label: "Roles", Icon: Briefcase },
-  { href: "/hr/applicants", label: "Applicants", Icon: Users },
-  { href: "/hr/fairness", label: "Fairness", Icon: ShieldCheck },
+const nav: NavItem[] = [
+  { href: "/hr", label: "Overview", icon: "dashboard" },
+  { href: "/hr/jobs", label: "Roles", icon: "briefcase" },
+  { href: "/hr/applicants", label: "Applicants", icon: "users" },
+  { href: "/hr/fairness", label: "Fairness", icon: "shield" },
 ]
 
-export default async function HRLayout({ children }: { children: React.ReactNode }) {
+export default async function HRLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const supabase = await createClient()
   const {
     data: { user },

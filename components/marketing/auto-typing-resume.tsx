@@ -6,16 +6,17 @@ import { FileText, CheckCircle2, Sparkles, ShieldCheck } from "lucide-react"
 
 /**
  * Auto-typing resume panel — redesigned from v1 per Section 11.
- * Shows a resume being "written" by AI in real time, with floating
- * ATS score + integrity chips. Glass surface + subtle glow.
+ * The former floating ATS + Integrity overlays have been moved
+ * INSIDE the panel header as inline stat chips (no more absolute
+ * positioning escaping the card).
  */
 
-type Line = { label: string; value: string; delay?: number }
+type Line = { label: string; value: string }
 
 const resumeLines: Line[] = [
-  { label: "Name", value: "Ananya Sharma" },
+  { label: "Name", value: "John Doe" },
   { label: "Role", value: "Senior Product Engineer" },
-  { label: "Location", value: "Bengaluru, IN · Remote" },
+  { label: "Location", value: "San Francisco, CA · Remote" },
   {
     label: "Summary",
     value:
@@ -24,7 +25,7 @@ const resumeLines: Line[] = [
   { label: "Skills", value: "TypeScript · Next.js · Postgres · AI tooling · Design systems" },
   {
     label: "Experience",
-    value: "Lead FE @ Northwind · Product Eng @ Cohort Labs · SWE @ Paytm",
+    value: "Lead FE @ Northwind · Product Eng @ Cohort Labs · SWE @ Stripe",
   },
 ]
 
@@ -74,8 +75,40 @@ function TypedLine({ line, index }: { line: Line; index: number }) {
   )
 }
 
+function StatChip({
+  icon: Icon,
+  label,
+  value,
+  tone,
+}: {
+  icon: typeof CheckCircle2
+  label: string
+  value: React.ReactNode
+  tone: "accent" | "secondary"
+}) {
+  const toneClass =
+    tone === "accent"
+      ? "bg-accent/15 text-accent"
+      : "bg-secondary/15 text-secondary"
+  return (
+    <div className="flex items-center gap-2 rounded-lg border border-border bg-surface-alt/60 px-2.5 py-1.5">
+      <span className={`grid h-6 w-6 place-items-center rounded-md ${toneClass}`}>
+        <Icon className="h-3.5 w-3.5" aria-hidden />
+      </span>
+      <span className="flex flex-col leading-tight">
+        <span className="font-mono text-[9px] uppercase tracking-wider text-text-muted">
+          {label}
+        </span>
+        <span className="font-mono text-[11px] font-semibold text-foreground">
+          {value}
+        </span>
+      </span>
+    </div>
+  )
+}
+
 export function AutoTypingResume() {
-  // Cycle: full render takes ~5.5s; hold for 3s; reset.
+  // Cycle full render every ~9s.
   const [cycle, setCycle] = useState(0)
   useEffect(() => {
     const id = setInterval(() => setCycle((c) => c + 1), 9000)
@@ -86,56 +119,12 @@ export function AutoTypingResume() {
 
   return (
     <div className="relative">
-      {/* Floating ATS chip */}
-      <motion.div
-        initial={{ opacity: 0, x: -24, y: 12 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-        className="glass ring-inset-highlight absolute -left-4 top-10 z-20 flex items-center gap-2 rounded-xl px-3 py-2 shadow-lg animate-float"
-        aria-label="ATS match score"
-      >
-        <div className="grid h-7 w-7 place-items-center rounded-lg bg-accent/15 text-accent">
-          <CheckCircle2 className="h-4 w-4" aria-hidden />
-        </div>
-        <div className="flex flex-col">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
-            ATS match
-          </span>
-          <span className="font-mono text-sm font-semibold text-foreground">
-            92<span className="text-text-muted">/100</span>
-          </span>
-        </div>
-      </motion.div>
-
-      {/* Floating integrity chip */}
-      <motion.div
-        initial={{ opacity: 0, x: 24, y: 12 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ delay: 1.1, duration: 0.5 }}
-        className="glass ring-inset-highlight absolute -right-3 bottom-20 z-20 flex items-center gap-2 rounded-xl px-3 py-2 shadow-lg animate-float"
-        style={{ animationDelay: "1.2s" }}
-        aria-label="Interview integrity signal"
-      >
-        <div className="grid h-7 w-7 place-items-center rounded-lg bg-secondary/15 text-secondary">
-          <ShieldCheck className="h-4 w-4" aria-hidden />
-        </div>
-        <div className="flex flex-col">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
-            Integrity signal
-          </span>
-          <span className="font-mono text-sm font-semibold text-foreground">
-            Confident
-          </span>
-        </div>
-      </motion.div>
-
-      {/* Main glass panel */}
       <div
         key={cycle}
         className="glass-strong ring-inset-highlight relative overflow-hidden rounded-2xl p-5 sm:p-6"
       >
-        {/* Window chrome */}
-        <div className="flex items-center justify-between border-b border-border pb-3">
+        {/* Window chrome + inline stat chips (replaces old floating overlays) */}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-3">
           <div className="flex items-center gap-2">
             <div className="grid h-7 w-7 place-items-center rounded-lg bg-primary/15 text-primary-glow">
               <FileText className="h-4 w-4" aria-hidden />
@@ -149,10 +138,24 @@ export function AutoTypingResume() {
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-danger/70" aria-hidden />
-            <span className="h-2 w-2 rounded-full bg-warning/70" aria-hidden />
-            <span className="h-2 w-2 rounded-full bg-accent/80" aria-hidden />
+
+          <div className="flex flex-wrap items-center gap-2">
+            <StatChip
+              icon={CheckCircle2}
+              label="ATS match"
+              value={
+                <>
+                  92<span className="text-text-muted">/100</span>
+                </>
+              }
+              tone="accent"
+            />
+            <StatChip
+              icon={ShieldCheck}
+              label="Integrity"
+              value="Confident"
+              tone="secondary"
+            />
           </div>
         </div>
 

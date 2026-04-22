@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { ShieldCheck, EyeOff, BarChart3, Scale } from "lucide-react"
+import { ParallaxLayer } from "./parallax-layer"
 
 const questions = [
   {
@@ -33,10 +34,13 @@ export function BiasExplainability() {
       className="relative overflow-hidden py-16 sm:py-20"
       aria-labelledby="fairness-heading"
     >
-      <div
-        className="pointer-events-none absolute inset-x-0 top-1/2 h-[420px] -translate-y-1/2 hero-beam opacity-60"
-        aria-hidden
-      />
+      <ParallaxLayer
+        decorative
+        speed={0.35}
+        className="absolute inset-x-0 top-1/2 h-[420px] -translate-y-1/2"
+      >
+        <div className="absolute inset-0 hero-beam opacity-60" aria-hidden />
+      </ParallaxLayer>
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <header className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">

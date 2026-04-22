@@ -2,13 +2,37 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import type { LucideIcon } from "lucide-react"
+import {
+  LayoutDashboard,
+  FileText,
+  Target,
+  Mic,
+  Briefcase,
+  Users,
+  ShieldCheck,
+  type LucideIcon,
+} from "lucide-react"
 import { cn } from "@/lib/utils"
+
+/**
+ * Icons are mapped client-side by string key so server layouts
+ * can pass a plain-data `nav` array across the RSC boundary.
+ * Do NOT pass React components as props from Server → Client.
+ */
+const ICONS: Record<string, LucideIcon> = {
+  dashboard: LayoutDashboard,
+  resume: FileText,
+  target: Target,
+  mic: Mic,
+  briefcase: Briefcase,
+  users: Users,
+  shield: ShieldCheck,
+}
 
 export type NavItem = {
   href: string
   label: string
-  Icon: LucideIcon
+  icon: keyof typeof ICONS
 }
 
 export function SidebarNav({ items }: { items: NavItem[] }) {
@@ -16,7 +40,8 @@ export function SidebarNav({ items }: { items: NavItem[] }) {
 
   return (
     <nav aria-label="Primary" className="flex flex-col gap-1">
-      {items.map(({ href, label, Icon }) => {
+      {items.map(({ href, label, icon }) => {
+        const Icon = ICONS[icon] ?? LayoutDashboard
         const active =
           pathname === href || (href !== "/" && pathname.startsWith(href))
         return (
@@ -34,7 +59,9 @@ export function SidebarNav({ items }: { items: NavItem[] }) {
             <Icon
               className={cn(
                 "h-4 w-4",
-                active ? "text-primary-glow" : "text-text-muted group-hover:text-text-secondary",
+                active
+                  ? "text-primary-glow"
+                  : "text-text-muted group-hover:text-text-secondary",
               )}
               aria-hidden
             />

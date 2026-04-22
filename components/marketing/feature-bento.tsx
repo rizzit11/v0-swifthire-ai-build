@@ -140,7 +140,7 @@ function BentoCard({ feature, index }: { feature: Feature; index: number }) {
       transition={{ duration: 0.45, delay: index * 0.04 }}
       whileHover={{ y: -4 }}
       className={cn(
-        "glass ring-inset-highlight group relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 transition-shadow",
+        "glass ring-inset-highlight group relative flex flex-col gap-5 overflow-hidden rounded-2xl p-6 transition-shadow",
         "hover:border-primary/20",
         spanClass,
       )}
@@ -162,7 +162,7 @@ function BentoCard({ feature, index }: { feature: Feature; index: number }) {
           {feature.description}
         </p>
       </div>
-      {feature.demo ? <div className="mt-5">{feature.demo}</div> : null}
+      {feature.demo ? <div>{feature.demo}</div> : null}
     </motion.article>
   )
 }
@@ -171,39 +171,89 @@ function BentoCard({ feature, index }: { feature: Feature; index: number }) {
 
 function BuilderDemo() {
   return (
-    <div className="relative overflow-hidden rounded-xl border border-border bg-surface-alt/60 p-4">
-      <div className="flex items-center justify-between border-b border-border pb-2">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
-          Sections
-        </span>
-        <span className="font-mono text-[10px] text-accent">● autosaved</span>
+    <div className="grid gap-3 sm:grid-cols-5">
+      {/* Live preview pane */}
+      <div className="relative overflow-hidden rounded-xl border border-border bg-surface-alt/60 p-3 sm:col-span-3">
+        <div className="flex items-center justify-between border-b border-border pb-2">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
+            Live preview
+          </span>
+          <span className="font-mono text-[10px] text-text-muted">A4 · LaTeX</span>
+        </div>
+        <div className="mt-3 space-y-2.5">
+          <div className="flex items-baseline justify-between">
+            <span className="font-serif text-[13px] font-semibold text-foreground">
+              John Doe
+            </span>
+            <span className="font-mono text-[9px] text-text-muted">
+              john@mail.com
+            </span>
+          </div>
+          <div className="h-1.5 w-4/5 rounded-full bg-border/80" aria-hidden />
+          <div className="h-1.5 w-3/5 rounded-full bg-border/60" aria-hidden />
+          <div className="pt-1">
+            <span className="font-mono text-[9px] uppercase tracking-wider text-primary-glow">
+              Experience
+            </span>
+            <div className="mt-1.5 space-y-1.5">
+              <div className="h-1.5 w-full rounded-full bg-border/80" aria-hidden />
+              <div className="h-1.5 w-11/12 rounded-full bg-border/60" aria-hidden />
+              <div className="h-1.5 w-4/6 rounded-full bg-border/50" aria-hidden />
+            </div>
+          </div>
+          <div className="pt-1">
+            <span className="font-mono text-[9px] uppercase tracking-wider text-primary-glow">
+              Skills
+            </span>
+            <div className="mt-1.5 flex flex-wrap gap-1">
+              {["TS", "Next.js", "Postgres", "AI"].map((s) => (
+                <span
+                  key={s}
+                  className="rounded-md border border-border bg-background/60 px-1.5 py-0.5 font-mono text-[9px] text-text-secondary"
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-      <ul className="mt-3 flex flex-col gap-1.5 text-xs text-text-secondary">
-        {["Personal", "Summary", "Experience", "Projects", "Skills"].map(
-          (s, i) => (
-            <li
-              key={s}
-              className={cn(
-                "flex items-center justify-between rounded-md px-2 py-1.5",
-                i === 2 && "bg-primary/10 text-foreground",
-              )}
-            >
-              <span>{s}</span>
-              <span className="font-mono text-[10px] text-text-muted">
-                {i === 2 ? "editing" : "ok"}
-              </span>
-            </li>
-          ),
-        )}
-      </ul>
+
+      {/* Sections pane */}
+      <div className="relative overflow-hidden rounded-xl border border-border bg-surface-alt/60 p-3 sm:col-span-2">
+        <div className="flex items-center justify-between border-b border-border pb-2">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
+            Sections
+          </span>
+          <span className="font-mono text-[10px] text-accent">● autosaved</span>
+        </div>
+        <ul className="mt-2 flex flex-col gap-1 text-xs text-text-secondary">
+          {["Personal", "Summary", "Experience", "Projects", "Skills"].map(
+            (s, i) => (
+              <li
+                key={s}
+                className={cn(
+                  "flex items-center justify-between rounded-md px-2 py-1.5",
+                  i === 2 && "bg-primary/10 text-foreground",
+                )}
+              >
+                <span>{s}</span>
+                <span className="font-mono text-[10px] text-text-muted">
+                  {i === 2 ? "editing" : "ok"}
+                </span>
+              </li>
+            ),
+          )}
+        </ul>
+      </div>
     </div>
   )
 }
 
 function ParserDemo() {
   const fields: Array<{ k: string; v: string; c: "green" | "amber" | "red" }> = [
-    { k: "Name", v: "Ananya S.", c: "green" },
-    { k: "Email", v: "a@mail.com", c: "green" },
+    { k: "Name", v: "John Doe", c: "green" },
+    { k: "Email", v: "john@mail.com", c: "green" },
     { k: "Role", v: "Snr. Product Eng", c: "amber" },
   ]
   const cMap = {
