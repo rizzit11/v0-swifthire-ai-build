@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { AuthLayout } from "@/components/auth/auth-layout"
 import { LoginForm } from "@/components/auth/login-form"
 
@@ -13,7 +14,10 @@ export default function LoginPage() {
       title="Welcome back"
       subtitle="Sign in to continue to your dashboard."
     >
-      <LoginForm />
+      {/* Wrap the component using useSearchParams in a Suspense boundary */}
+      <Suspense fallback={<div className="text-sm text-muted-foreground">Loading...</div>}>
+        <LoginForm />
+      </Suspense>
     </AuthLayout>
   )
 }
