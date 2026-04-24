@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Inter, Geist, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { AnalyticsProvider } from "@/components/app/analytics-provider"
 import "./globals.css"
 
 // Typography per Section 8.2:
@@ -83,6 +84,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-sans antialiased bg-background text-foreground min-h-screen">
+        <AnalyticsProvider />
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>

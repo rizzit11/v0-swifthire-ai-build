@@ -146,7 +146,7 @@ export function AuthLayout({
                 <>
                   New here?{" "}
                   <Link
-                    href="/auth/sign-up"
+                    href="/sign-up"
                     className="font-medium text-foreground underline-offset-4 hover:underline"
                   >
                     Create an account
@@ -156,7 +156,7 @@ export function AuthLayout({
                 <>
                   Already have an account?{" "}
                   <Link
-                    href="/auth/login"
+                    href="/sign-in"
                     className="font-medium text-foreground underline-offset-4 hover:underline"
                   >
                     Sign in
