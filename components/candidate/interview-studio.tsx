@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import {
   Mic,
   Code2,
@@ -9,8 +9,14 @@ import {
   CheckCircle2,
   Clock,
   ArrowRight,
+  Radio,
+  WifiOff,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import {
+  useInterviewSocket,
+  type SocketStatus,
+} from "@/lib/interview/use-interview-socket"
 
 type Track = {
   id: string
@@ -81,8 +87,26 @@ const SAMPLE_FEEDBACK = [
 export function InterviewStudio() {
   const [track, setTrack] = useState<Track>(TRACKS[0])
 
+  // Live mode is opt-in via env. When NEXT_PUBLIC_INTERVIEW_WS_URL isn't
+  // configured the hook stays in `idle` and we render a friendly "preview"
+  // chip — same UI, no broken WebSocket attempts.
+  const wsUrl = useMemo(() => {
+    const raw = process.env.NEXT_PUBLIC_INTERVIEW_WS_URL
+    return raw && raw.length > 0 ? raw : null
+  }, [])
+
+  const socket = useInterviewSocket({
+    url: wsUrl,
+    autoConnect: !!wsUrl,
+    sessionId: track.id,
+  })
+
   return (
     <div className="flex flex-col gap-5">
+      <div className="flex items-center justify-end">
+        <ConnectionBadge status={socket.status} latencyMs={socket.latencyMs} />
+      </div>
+
       {/* Track chooser */}
       <section aria-label="Pick a track" className="grid grid-cols-1 gap-3 md:grid-cols-3">
         {TRACKS.map((t) => {
@@ -152,6 +176,7 @@ export function InterviewStudio() {
           </blockquote>
 
           {/* Recorder mock */}
+          {/* Recorder mock area */}
           <div className="mt-5 flex items-center gap-4 rounded-xl border border-border bg-surface-alt/50 p-4">
             <button
               type="button"

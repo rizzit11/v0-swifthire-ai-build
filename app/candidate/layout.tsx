@@ -8,6 +8,7 @@ const nav: NavItem[] = [
   { href: "/candidate", label: "Overview", icon: "dashboard" },
   { href: "/candidate/resumes", label: "Resumes", icon: "resume" },
   { href: "/candidate/jobs", label: "JD matching", icon: "target" },
+  { href: "/candidate/tracker", label: "Tracker", icon: "briefcase" },
   { href: "/candidate/interviews", label: "Interviews", icon: "mic" },
 ]
 
