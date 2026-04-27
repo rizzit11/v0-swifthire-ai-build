@@ -263,3 +263,73 @@ export function InterviewStudio() {
     </div>
   )
 }
+
+function ConnectionBadge({
+  status,
+  latencyMs,
+}: {
+  status: SocketStatus
+  latencyMs: number | null
+}) {
+  // `idle` means we never tried (no NEXT_PUBLIC_INTERVIEW_WS_URL).
+  // We surface that as a calm "Preview mode" chip instead of an alarming
+  // disconnected state, matching the rest of the studio's tone.
+  const live =
+    status === "open" ||
+    status === "connecting" ||
+    status === "reconnecting" ||
+    status === "closed"
+
+  const config: Record<
+    SocketStatus,
+    { label: string; tone: string; Icon: React.ComponentType<{ className?: string }> }
+  > = {
+    idle: {
+      label: "Preview mode",
+      tone: "border-border bg-surface-alt/50 text-text-muted",
+      Icon: WifiOff,
+    },
+    connecting: {
+      label: "Connecting",
+      tone: "border-primary/30 bg-primary/10 text-primary-glow",
+      Icon: Radio,
+    },
+    open: {
+      label: latencyMs != null ? `Live · ${latencyMs}ms` : "Live",
+      tone: "border-primary/30 bg-primary/10 text-primary-glow",
+      Icon: Radio,
+    },
+    reconnecting: {
+      label: "Reconnecting",
+      tone: "border-accent/30 bg-accent/10 text-accent",
+      Icon: Radio,
+    },
+    closed: {
+      label: "Disconnected",
+      tone: "border-border bg-surface-alt/50 text-text-muted",
+      Icon: WifiOff,
+    },
+  }
+
+  const { label, tone, Icon } = config[status]
+
+  return (
+    <span
+      role="status"
+      aria-live="polite"
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider",
+        tone,
+      )}
+    >
+      <Icon
+        className={cn(
+          "h-3 w-3",
+          live && status === "open" && "animate-pulse",
+        )}
+        aria-hidden
+      />
+      {label}
+    </span>
+  )
+}
