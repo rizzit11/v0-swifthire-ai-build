@@ -14,7 +14,7 @@ const navLinks = [
   { href: "#pricing", label: "Pricing" },
 ]
 
-export function Navbar() {
+export function Navbar({ authed = false }: { authed?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -69,19 +69,30 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Button
-            asChild
-            variant="ghost"
-            className="h-9 rounded-xl text-text-secondary hover:bg-white/5 hover:text-foreground"
-          >
-            <Link href="/auth/login">Sign in</Link>
-          </Button>
-          <Button
-            asChild
-            className="h-9 rounded-xl bg-primary text-primary-foreground hover:bg-primary-glow glow-primary"
-          >
-            <Link href="/auth/sign-up">Get started</Link>
-          </Button>
+          {authed ? (
+            <Button
+              asChild
+              className="h-9 rounded-xl bg-primary text-primary-foreground hover:bg-primary-glow glow-primary"
+            >
+              <Link href="/dashboard">Open dashboard</Link>
+            </Button>
+          ) : (
+            <>
+              <Button
+                asChild
+                variant="ghost"
+                className="h-9 rounded-xl text-text-secondary hover:bg-white/5 hover:text-foreground"
+              >
+                <Link href="/sign-in">Sign in</Link>
+              </Button>
+              <Button
+                asChild
+                className="h-9 rounded-xl bg-primary text-primary-foreground hover:bg-primary-glow glow-primary"
+              >
+                <Link href="/sign-up">Get started</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         <button
@@ -122,28 +133,44 @@ export function Navbar() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-2 grid grid-cols-2 gap-2">
-                <Button
-                  asChild
-                  variant="ghost"
-                  className="rounded-xl border border-border text-text-secondary hover:bg-white/5 hover:text-foreground"
-                >
-                  <Link href="/auth/login" onClick={() => setMobileOpen(false)}>
-                    Sign in
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  className="rounded-xl bg-primary text-primary-foreground hover:bg-primary-glow"
-                >
-                  <Link
-                    href="/auth/sign-up"
-                    onClick={() => setMobileOpen(false)}
+              {authed ? (
+                <div className="mt-2">
+                  <Button
+                    asChild
+                    className="w-full rounded-xl bg-primary text-primary-foreground hover:bg-primary-glow"
                   >
-                    Get started
-                  </Link>
-                </Button>
-              </div>
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Open dashboard
+                    </Link>
+                  </Button>
+                </div>
+              ) : (
+                <div className="mt-2 grid grid-cols-2 gap-2">
+                  <Button
+                    asChild
+                    variant="ghost"
+                    className="rounded-xl border border-border text-text-secondary hover:bg-white/5 hover:text-foreground"
+                  >
+                    <Link href="/sign-in" onClick={() => setMobileOpen(false)}>
+                      Sign in
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    className="rounded-xl bg-primary text-primary-foreground hover:bg-primary-glow"
+                  >
+                    <Link
+                      href="/sign-up"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Get started
+                    </Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
