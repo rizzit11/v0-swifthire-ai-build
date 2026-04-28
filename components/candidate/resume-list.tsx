@@ -1,6 +1,7 @@
 "use client"
 
-import { FileText, Star } from "lucide-react"
+import Link from "next/link"
+import { FileText, PenSquare, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 type Resume = {
@@ -91,6 +92,13 @@ function ResumeRow({ resume }: { resume: Resume }) {
       </div>
 
       <div className="flex items-center gap-3 sm:gap-4">
+        <Link
+          href={`/candidate/resumes/${resume.id}/builder`}
+          className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-border bg-white/[0.02] px-2.5 text-xs font-medium text-foreground transition-colors hover:border-primary/30 hover:bg-primary/10"
+        >
+          <PenSquare className="h-3.5 w-3.5 text-primary-glow" aria-hidden />
+          Open builder
+        </Link>
         {Array.isArray(parsed.skills) && parsed.skills.length > 0 ? (
           <ul className="hidden items-center gap-1.5 md:flex">
             {parsed.skills.slice(0, 3).map((s) => (

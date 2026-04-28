@@ -40,6 +40,30 @@ export default async function CandidateOverview() {
     user?.email?.split("@")[0] ??
     "there"
 
+  // Three primary shortcuts. "Build a resume" deep-links into the builder
+  // route — the bootstrap page either reuses the most-recent resume or
+  // creates a blank one — so the user never lands on a dead "Open" link.
+  const shortcuts = [
+    {
+      title: "Build a resume",
+      body: "LaTeX-grade PDF with live JD suggestions.",
+      href: "/candidate/resumes/new",
+      Icon: FileText,
+    },
+    {
+      title: "Match a JD",
+      body: "ATS score, missing keywords, fix-it tips.",
+      href: "/candidate/jobs",
+      Icon: Target,
+    },
+    {
+      title: "Practice interview",
+      body: "Rubric-based scoring + coaching feedback.",
+      href: "/candidate/interviews",
+      Icon: Mic,
+    },
+  ]
+
   return (
     <div className="flex flex-col gap-6">
       {/* Welcome */}
@@ -73,50 +97,9 @@ export default async function CandidateOverview() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section aria-label="Overview metrics">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {stats.map((s) => (
-            <div
-              key={s.k}
-              className="glass ring-inset-highlight rounded-2xl p-4"
-            >
-              <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
-                {s.k}
-              </span>
-              <div className="mt-1 font-mono text-2xl font-semibold text-foreground">
-                {s.v}
-              </div>
-              <span className="font-mono text-[10px] text-text-muted">
-                {s.d}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Shortcuts */}
+      {/* Shortcuts (now ABOVE the metric tiles per request) */}
       <section className="grid grid-cols-1 gap-3 md:grid-cols-3">
-        {[
-          {
-            title: "Build a resume",
-            body: "LaTeX-grade PDF with live JD suggestions.",
-            href: "/candidate/resumes",
-            Icon: FileText,
-          },
-          {
-            title: "Match a JD",
-            body: "ATS score, missing keywords, fix-it tips.",
-            href: "/candidate/jobs",
-            Icon: Target,
-          },
-          {
-            title: "Practice interview",
-            body: "Rubric-based scoring + coaching feedback.",
-            href: "/candidate/interviews",
-            Icon: Mic,
-          },
-        ].map(({ title, body, href, Icon }) => (
+        {shortcuts.map(({ title, body, href, Icon }) => (
           <Link
             key={href}
             href={href}
@@ -140,6 +123,28 @@ export default async function CandidateOverview() {
             </span>
           </Link>
         ))}
+      </section>
+
+      {/* Stats (now BELOW shortcuts) */}
+      <section aria-label="Overview metrics">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          {stats.map((s) => (
+            <div
+              key={s.k}
+              className="glass ring-inset-highlight rounded-2xl p-4"
+            >
+              <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
+                {s.k}
+              </span>
+              <div className="mt-1 font-mono text-2xl font-semibold text-foreground">
+                {s.v}
+              </div>
+              <span className="font-mono text-[10px] text-text-muted">
+                {s.d}
+              </span>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   )
